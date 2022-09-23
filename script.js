@@ -1,4 +1,6 @@
-var grid = []/*[
+var grid = []
+
+/*[
   [["m", 0], ["m", 1], ["m", 2], ["m", 3], ["m", 4], ["m", 5]],
   [["m", 6], ["m", 7], ["m", 8], ["m", 9], ["m", 10], ["m", 11]],
   [["d", 1], ["d", 2], ["d", 3], ["m", 13], ["m", 14]],
@@ -92,8 +94,7 @@ const pieces = [
 
 function piecePos(pieceNumber, index, reverse) {
   var piece = [],
-      piece2 = [],
-      piece3 = [];
+      piece2 = [];
 
   if(index == 0) {        // Rotate 90
     for(let i = 0; i < pieces[pieceNumber][0].length; i++) {
@@ -106,22 +107,12 @@ function piecePos(pieceNumber, index, reverse) {
   }
 
   else if(index == 1) {   // Rotate 180
-    for(let i = 0; i < pieces[pieceNumber][0].length; i++) {
-      piece.push([])
-      for(let j = 0; j < pieces[pieceNumber].length; j++) {
-        piece[i].push(pieces[pieceNumber][j][i])
-      }
-      piece[i].reverse()
-    }
-    for(let i = 0; i < piece[0].length; i++) {
-      piece2.push([])
-      for(let j = 0; j < piece.length; j++) {
-        piece2[i].push(piece[j][i])
-      }
-      piece2[i].reverse()
-    }
+    pieces[pieceNumber].reverse()
+    pieces[pieceNumber].map(pi => {
+      return pi.reverse()
+    })
 
-    piece = piece2
+    piece = pieces[pieceNumber];
   }
 
   else if(index == 2) {   // Rotate 270
@@ -134,19 +125,17 @@ function piecePos(pieceNumber, index, reverse) {
     }
   }
 
-  /*
-  [
-    [0, 1],
-    [1, 1],
-    [0, 1],
-    [0, 1],
-  ]
-  */
-
   if(reverse == true) {   // Reverse
     piece.reverse()
   }
 
   return piece ;
+}
+
+function generateOrder() {
+  var array = [0, 1, 2, 3, 4, 5, 6];
+  const shuffledArray = array.sort((a, b) => 0.5 - Math.random());
+
+  return array
 }
 
